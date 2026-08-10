@@ -134,7 +134,7 @@ def audit_docvqa():
 
 def print_recommendations():
     console.rule("[bold green]Retraining & Preprocessing Recommendations[/bold green]")
-    recs = \"\"\"
+    recs = """
 1. **Preprocessing (Critical for OCR and Donut):**
    - **Deskewing:** Ensure all documents are deskewed. Donut performs poorly on heavily rotated text.
    - **Contrast Enhancement:** Apply adaptive binarization (e.g., cv2.adaptiveThreshold) to fix faded ink.
@@ -148,7 +148,7 @@ def print_recommendations():
    - The current generic Donut-DocVQA model understands general forms. Fine-tune it specifically on **Insurance Claim Forms** (your domain data).
    - Use a specialized prompt template: `<s_claimant_name>{name}</s_claimant_name><s_amount>{amount}</s_amount>`.
    - Augmentation: Add noise, slight rotations, and blur to the training set to make the model robust against poor-quality mobile scans.
-\"\"\"
+"""
     console.print(recs)
 
 
