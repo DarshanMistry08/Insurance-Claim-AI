@@ -36,11 +36,11 @@ graph LR
 
 | Technology | Version | Used In | What It Does |
 |-----------|---------|---------|--------------|
-| **LangGraph** | ≥0.1 | [graph.py](file:///c:/Users/ASUS/Desktop/demo2/pipeline/graph.py) | Orchestrates the 5-agent pipeline as a state machine (START → extract → policy_retrieval → verification → fraud_scoring → summary → END) |
+| **LangGraph** | ≥0.1 | [graph.py](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/pipeline/graph.py) | Orchestrates the 5-agent pipeline as a state machine (START → extract → policy_retrieval → verification → fraud_scoring → summary → END) |
 | **LangChain** | ≥0.2 | Dependency for LangGraph | Foundation framework for building LLM-powered applications |
-| **Ollama (llama3.2)** | latest | [extract_agent.py](file:///c:/Users/ASUS/Desktop/demo2/agents/extract_agent.py), [verification_agent.py](file:///c:/Users/ASUS/Desktop/demo2/agents/verification_agent.py), [fraud_scoring_agent.py](file:///c:/Users/ASUS/Desktop/demo2/agents/fraud_scoring_agent.py), [summary_agent.py](file:///c:/Users/ASUS/Desktop/demo2/agents/summary_agent.py) | Local LLM for field extraction (vision + text), policy verification, fraud classification, and summary generation |
-| **sentence-transformers** | ≥2.7 | [policy_retrieval_agent.py](file:///c:/Users/ASUS/Desktop/demo2/agents/policy_retrieval_agent.py), [fraud_scoring_agent.py](file:///c:/Users/ASUS/Desktop/demo2/agents/fraud_scoring_agent.py) | Generates 384-dim embeddings using `all-MiniLM-L6-v2` for semantic search and duplicate detection |
-| **HuggingFace Inference API** | — | [extract_agent.py](file:///c:/Users/ASUS/Desktop/demo2/agents/extract_agent.py), [fraud_scoring_agent.py](file:///c:/Users/ASUS/Desktop/demo2/agents/fraud_scoring_agent.py) | Cloud API for `Donut DocVQA` (document QA) and `BART-large-MNLI` (zero-shot classification) |
+| **Ollama (llama3.2)** | latest | [extract_agent.py](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/agents/extract_agent.py), [verification_agent.py](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/agents/verification_agent.py), [fraud_scoring_agent.py](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/agents/fraud_scoring_agent.py), [summary_agent.py](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/agents/summary_agent.py) | Local LLM for field extraction (vision + text), policy verification, fraud classification, and summary generation |
+| **sentence-transformers** | ≥2.7 | [policy_retrieval_agent.py](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/agents/policy_retrieval_agent.py), [fraud_scoring_agent.py](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/agents/fraud_scoring_agent.py) | Generates 384-dim embeddings using `all-MiniLM-L6-v2` for semantic search and duplicate detection |
+| **HuggingFace Inference API** | — | [extract_agent.py](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/agents/extract_agent.py), [fraud_scoring_agent.py](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/agents/fraud_scoring_agent.py) | Cloud API for `Donut DocVQA` (document QA) and `BART-large-MNLI` (zero-shot classification) |
 | **transformers** | ≥4.40 | Dependency | Hugging Face model support |
 | **PyTorch** | ≥2.2 | Dependency | Deep learning backend for transformer models |
 
@@ -52,10 +52,10 @@ graph LR
 
 | Model | Purpose | Used In |
 |-------|---------|---------|
-| **naver-clova-ix/donut-base-finetuned-docvqa** | Visual document question answering — reads images and answers field-specific questions | [extract_agent.py](file:///c:/Users/ASUS/Desktop/demo2/agents/extract_agent.py#L29) (primary extraction strategy) |
+| **naver-clova-ix/donut-base-finetuned-docvqa** | Visual document question answering — reads images and answers field-specific questions | [extract_agent.py](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/agents/extract_agent.py#L29) (primary extraction strategy) |
 | **llama3.2** (via Ollama) | General-purpose LLM for vision, text extraction, verification reasoning, and summary generation | All 5 agent files |
-| **all-MiniLM-L6-v2** | Sentence embedding model (384-dim) for semantic similarity | [policy_retrieval_agent.py](file:///c:/Users/ASUS/Desktop/demo2/agents/policy_retrieval_agent.py#L45), [fraud_scoring_agent.py](file:///c:/Users/ASUS/Desktop/demo2/agents/fraud_scoring_agent.py#L48) |
-| **facebook/bart-large-mnli** | Zero-shot text classification (legitimate/suspicious/fraudulent) | [fraud_scoring_agent.py](file:///c:/Users/ASUS/Desktop/demo2/agents/fraud_scoring_agent.py#L30) |
+| **all-MiniLM-L6-v2** | Sentence embedding model (384-dim) for semantic similarity | [policy_retrieval_agent.py](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/agents/policy_retrieval_agent.py#L45), [fraud_scoring_agent.py](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/agents/fraud_scoring_agent.py#L48) |
+| **facebook/bart-large-mnli** | Zero-shot text classification (legitimate/suspicious/fraudulent) | [fraud_scoring_agent.py](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/agents/fraud_scoring_agent.py#L30) |
 
 > **Where these can be used:** Invoice processing, receipt scanning, KYC document verification, exam paper grading, medical form digitization, sentiment analysis, topic classification.
 
@@ -65,12 +65,12 @@ graph LR
 
 | Technology | Version | Used In | What It Does |
 |-----------|---------|---------|--------------|
-| **FastAPI** | ≥0.111 | [api/main.py](file:///c:/Users/ASUS/Desktop/demo2/api/main.py) | REST API with 3 endpoints: `POST /claims/process`, `GET /claims/{doc_id}`, `GET /health` |
-| **Uvicorn** | ≥0.29 | [start_api.py](file:///c:/Users/ASUS/Desktop/demo2/start_api.py) | ASGI server running the FastAPI app with hot-reload |
-| **Pydantic** | (via FastAPI) | [api/schemas.py](file:///c:/Users/ASUS/Desktop/demo2/api/schemas.py), [agents/state.py](file:///c:/Users/ASUS/Desktop/demo2/agents/state.py) | Data validation and serialization for API responses and agent state models |
+| **FastAPI** | ≥0.111 | [api/main.py](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/api/main.py) | REST API with 3 endpoints: `POST /claims/process`, `GET /claims/{doc_id}`, `GET /health` |
+| **Uvicorn** | ≥0.29 | [start_api.py](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/start_api.py) | ASGI server running the FastAPI app with hot-reload |
+| **Pydantic** | (via FastAPI) | [api/schemas.py](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/api/schemas.py), [agents/state.py](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/agents/state.py) | Data validation and serialization for API responses and agent state models |
 | **python-multipart** | ≥0.0.9 | API file upload | Handles `multipart/form-data` for image file uploads |
-| **python-dotenv** | ≥1.0 | [graph.py](file:///c:/Users/ASUS/Desktop/demo2/pipeline/graph.py#L18) | Loads `.env` configuration variables |
-| **CORS Middleware** | (FastAPI) | [api/main.py](file:///c:/Users/ASUS/Desktop/demo2/api/main.py#L42-L47) | Allows cross-origin requests from the Next.js frontend |
+| **python-dotenv** | ≥1.0 | [graph.py](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/pipeline/graph.py#L18) | Loads `.env` configuration variables |
+| **CORS Middleware** | (FastAPI) | [api/main.py](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/api/main.py#L42-L47) | Allows cross-origin requests from the Next.js frontend |
 
 > **Where these can be used:** Any web API — microservices, data pipelines, webhook handlers, ML model serving, real-time data processing APIs, IoT backends.
 
@@ -80,9 +80,9 @@ graph LR
 
 | Technology | Version | Used In | What It Does |
 |-----------|---------|---------|--------------|
-| **PostgreSQL 16** | pg16 | [docker-compose.yml](file:///c:/Users/ASUS/Desktop/demo2/docker-compose.yml#L4-L21) | Primary relational database storing documents, claims, golden labels, and policy clauses |
-| **pgvector** | ≥0.2 | [init.sql](file:///c:/Users/ASUS/Desktop/demo2/db/init.sql#L7) | Vector extension for Postgres — enables cosine similarity search on 384-dim embeddings |
-| **HNSW Index** | — | [init.sql](file:///c:/Users/ASUS/Desktop/demo2/db/init.sql#L44-L46) | Approximate nearest-neighbor index for fast vector search (m=16, ef_construction=64) |
+| **PostgreSQL 16** | pg16 | [docker-compose.yml](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/docker-compose.yml#L4-L21) | Primary relational database storing documents, claims, golden labels, and policy clauses |
+| **pgvector** | ≥0.2 | [init.sql](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/db/init.sql#L7) | Vector extension for Postgres — enables cosine similarity search on 384-dim embeddings |
+| **HNSW Index** | — | [init.sql](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/db/init.sql#L44-L46) | Approximate nearest-neighbor index for fast vector search (m=16, ef_construction=64) |
 | **psycopg2-binary** | ≥2.9 | All DB-connected agents | Python PostgreSQL adapter for running SQL queries |
 
 **Database Tables (6):**
@@ -104,8 +104,8 @@ graph LR
 
 | Technology | Version | Used In | What It Does |
 |-----------|---------|---------|--------------|
-| **Next.js** | 16.2.11 | [frontend/](file:///c:/Users/ASUS/Desktop/demo2/frontend) | React framework with server-side rendering for the claim processing dashboard |
-| **React** | 19.2.4 | [page.tsx](file:///c:/Users/ASUS/Desktop/demo2/frontend/src/app/page.tsx) | UI library — drag-and-drop upload, pipeline progress animation, results display |
+| **Next.js** | 16.2.11 | [frontend/](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/frontend) | React framework with server-side rendering for the claim processing dashboard |
+| **React** | 19.2.4 | [page.tsx](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/frontend/src/app/page.tsx) | UI library — drag-and-drop upload, pipeline progress animation, results display |
 | **TypeScript** | ^5 | All frontend files | Type-safe JavaScript |
 | **Tailwind CSS** | ^4 | Styling | Utility-first CSS framework |
 | **PostCSS** | — | Build pipeline | CSS processing |
@@ -119,8 +119,8 @@ graph LR
 
 | Technology | Version | Used In | What It Does |
 |-----------|---------|---------|--------------|
-| **Langfuse** | ≥2.0 | [agents/tracing.py](file:///c:/Users/ASUS/Desktop/demo2/agents/tracing.py) | LLM observability — traces each agent node's inputs, outputs, latency, and errors |
-| **structlog** | ≥24.1.0 | [agents/tracing.py](file:///c:/Users/ASUS/Desktop/demo2/agents/tracing.py#L12) | Structured logging with key-value pairs for production debugging |
+| **Langfuse** | ≥2.0 | [agents/tracing.py](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/agents/tracing.py) | LLM observability — traces each agent node's inputs, outputs, latency, and errors |
+| **structlog** | ≥24.1.0 | [agents/tracing.py](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/agents/tracing.py#L12) | Structured logging with key-value pairs for production debugging |
 | **Python logging** | stdlib | All agent files | Standard logging for warnings and errors |
 
 > **Where these can be used:** Production ML systems, API monitoring, audit trails, debugging LLM applications, cost tracking for LLM calls, A/B testing AI features.
@@ -131,11 +131,11 @@ graph LR
 
 | Technology | Version | Used In | What It Does |
 |-----------|---------|---------|--------------|
-| **HuggingFace datasets** | ≥2.19 | [pull_funsd.py](file:///c:/Users/ASUS/Desktop/demo2/scripts/pull_funsd.py), [pull_docvqa.py](file:///c:/Users/ASUS/Desktop/demo2/scripts/pull_docvqa.py) | Downloads FUNSD and DocVQA datasets for training/evaluation |
+| **HuggingFace datasets** | ≥2.19 | [pull_funsd.py](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/scripts/pull_funsd.py), [pull_docvqa.py](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/scripts/pull_docvqa.py) | Downloads FUNSD and DocVQA datasets for training/evaluation |
 | **Pillow (PIL)** | ≥10.0 | Image processing | Image manipulation and OCR preprocessing |
-| **EasyOCR** | optional | [extract_agent.py](file:///c:/Users/ASUS/Desktop/demo2/agents/extract_agent.py#L141-L144) | OCR fallback for text extraction from images |
-| **pytesseract** | optional | [extract_agent.py](file:///c:/Users/ASUS/Desktop/demo2/agents/extract_agent.py#L149-L153) | Alternative OCR engine (Google Tesseract wrapper) |
-| **pandas** | ≥2.1 | [scripts/](file:///c:/Users/ASUS/Desktop/demo2/scripts) | Data handling for golden set CSV processing |
+| **EasyOCR** | optional | [extract_agent.py](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/agents/extract_agent.py#L141-L144) | OCR fallback for text extraction from images |
+| **pytesseract** | optional | [extract_agent.py](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/agents/extract_agent.py#L149-L153) | Alternative OCR engine (Google Tesseract wrapper) |
+| **pandas** | ≥2.1 | [scripts/](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/scripts) | Data handling for golden set CSV processing |
 | **rich** | ≥13.0 | CLI scripts | Beautiful terminal output with tables and progress bars |
 | **click** | ≥8.1 | CLI scripts | Command-line argument parsing |
 
@@ -147,11 +147,11 @@ graph LR
 
 | Technology | Used In | What It Does |
 |-----------|---------|--------------|
-| **Docker** | [docker-compose.yml](file:///c:/Users/ASUS/Desktop/demo2/docker-compose.yml) | Containerizes all 4 services (Postgres, Ollama, API, Frontend) |
-| **Docker Compose** | [docker-compose.yml](file:///c:/Users/ASUS/Desktop/demo2/docker-compose.yml) | Multi-container orchestration with health checks and dependency ordering |
-| **backend.Dockerfile** | [backend.Dockerfile](file:///c:/Users/ASUS/Desktop/demo2/backend.Dockerfile) | Python API container build |
-| **frontend.Dockerfile** | [frontend/frontend.Dockerfile](file:///c:/Users/ASUS/Desktop/demo2/frontend/frontend.Dockerfile) | Next.js container build |
-| **LangGraph Studio** | [langgraph.json](file:///c:/Users/ASUS/Desktop/demo2/langgraph.json) | Visual debugger for the state machine graph |
+| **Docker** | [docker-compose.yml](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/docker-compose.yml) | Containerizes all 4 services (Postgres, Ollama, API, Frontend) |
+| **Docker Compose** | [docker-compose.yml](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/docker-compose.yml) | Multi-container orchestration with health checks and dependency ordering |
+| **backend.Dockerfile** | [backend.Dockerfile](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/backend.Dockerfile) | Python API container build |
+| **frontend.Dockerfile** | [frontend/frontend.Dockerfile](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/frontend/frontend.Dockerfile) | Next.js container build |
+| **LangGraph Studio** | [langgraph.json](https://github.com/DarshanMistry08/Insurance-Claim-AI/blob/main/langgraph.json) | Visual debugger for the state machine graph |
 
 > **Where these can be used:** Microservice deployments, CI/CD pipelines, cloud hosting (AWS ECS, GCP Cloud Run, Azure Container Apps), local development environments.
 

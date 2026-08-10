@@ -13,7 +13,8 @@
 ### 1. Clone & set up Python environment
 
 ```bash
-cd demo2
+git clone https://github.com/DarshanMistry08/Insurance-Claim-AI.git
+cd Insurance-Project
 python -m venv .venv
 .venv\Scripts\activate        # Windows
 # source .venv/bin/activate   # Linux/Mac
@@ -58,7 +59,7 @@ python scripts/seed_golden_set.py
 ## Project Structure
 
 ```
-demo2/
+Insurance-Project/
 ├── SPEC.md                    # ← North-star spec (claim definition, fields, flags)
 ├── docker-compose.yml         # Postgres + pgvector
 ├── requirements.txt           # Python dependencies
