@@ -1,0 +1,549 @@
+{
+  "version": "2.0",
+  "description": "ClaimSight golden evaluation set — 30 synthetic insurance claim documents with ground-truth field values and expected pipeline flags.",
+  "fields_evaluated": ["claimant_name", "policy_number", "incident_date", "claim_filing_date", "incident_type", "incident_description", "amount_claimed", "claimant_address", "adjuster_name", "supporting_doc_count"],
+  "image_dir": "data/synthetic_claims/images",
+  "claims": [
+    {
+      "doc_id": "claim_001",
+      "ground_truth": {
+        "claimant_name": "Sarah Johnson",
+        "policy_number": "HO-2023-4521",
+        "incident_date": "2024-03-15",
+        "claim_filing_date": "2024-03-20",
+        "incident_type": "water",
+        "incident_description": "Burst pipe in master bathroom flooded ground floor",
+        "amount_claimed": "$8,500",
+        "claimant_address": "42 Maple Drive, Springfield IL 62701",
+        "adjuster_name": "Robert Chen",
+        "supporting_doc_count": "3"
+      },
+      "expected_flags": [],
+      "relevant_clause_ids": ["WATER_DAMAGE_B"],
+      "expected_recommendation": "APPROVE"
+    },
+    {
+      "doc_id": "claim_002",
+      "ground_truth": {
+        "claimant_name": "Marcus Williams",
+        "policy_number": "HO-2022-8834",
+        "incident_date": "2024-01-08",
+        "claim_filing_date": "2024-01-12",
+        "incident_type": "fire",
+        "incident_description": "Kitchen fire caused by unattended cooking resulted in smoke damage throughout",
+        "amount_claimed": "$45,000",
+        "claimant_address": "178 Oak Street, Denver CO 80201",
+        "adjuster_name": "Lisa Park",
+        "supporting_doc_count": "5"
+      },
+      "expected_flags": [],
+      "relevant_clause_ids": ["FIRE_DAMAGE_C"],
+      "expected_recommendation": "APPROVE"
+    },
+    {
+      "doc_id": "claim_003",
+      "ground_truth": {
+        "claimant_name": "Elena Rodriguez",
+        "policy_number": "HO-2021-3390",
+        "incident_date": "2024-02-22",
+        "claim_filing_date": "2024-02-27",
+        "incident_type": "theft",
+        "incident_description": "Burglary during vacation resulted in stolen electronics and jewelry",
+        "amount_claimed": "$12,000",
+        "claimant_address": "9 Birch Lane, Austin TX 78701",
+        "adjuster_name": "Thomas Grant",
+        "supporting_doc_count": "4"
+      },
+      "expected_flags": [],
+      "relevant_clause_ids": ["THEFT_VANDALISM_D"],
+      "expected_recommendation": "APPROVE"
+    },
+    {
+      "doc_id": "claim_004",
+      "ground_truth": {
+        "claimant_name": "James Park",
+        "policy_number": "HO-2020-6671",
+        "incident_date": "2024-04-10",
+        "claim_filing_date": "2024-04-14",
+        "incident_type": "water",
+        "incident_description": "Refrigerator water line failure caused extensive basement flooding",
+        "amount_claimed": "$28,000",
+        "claimant_address": "5500 Elm Boulevard, Seattle WA 98101",
+        "adjuster_name": "Nancy Wu",
+        "supporting_doc_count": "6"
+      },
+      "expected_flags": ["AMOUNT_EXCEEDS_WATER_LIMIT"],
+      "relevant_clause_ids": ["WATER_DAMAGE_B"],
+      "expected_recommendation": "FLAG_FOR_REVIEW"
+    },
+    {
+      "doc_id": "claim_005",
+      "ground_truth": {
+        "claimant_name": "Priya Patel",
+        "policy_number": "HO-2023-9102",
+        "incident_date": "2024-05-03",
+        "claim_filing_date": "2024-05-07",
+        "incident_type": "fire",
+        "incident_description": "Electrical fire in garage destroyed structure and three vehicles",
+        "amount_claimed": "$195,000",
+        "claimant_address": "301 Pine Court, Atlanta GA 30301",
+        "adjuster_name": "David Okafor",
+        "supporting_doc_count": "8"
+      },
+      "expected_flags": [],
+      "relevant_clause_ids": ["FIRE_DAMAGE_C"],
+      "expected_recommendation": "APPROVE"
+    },
+    {
+      "doc_id": "claim_006",
+      "ground_truth": {
+        "claimant_name": "David Nguyen",
+        "policy_number": "PAP-2023-1147",
+        "incident_date": "2024-06-18",
+        "claim_filing_date": "2024-06-21",
+        "incident_type": "auto",
+        "incident_description": "Rear-end collision at traffic light caused bumper and trunk damage",
+        "amount_claimed": "$3,200",
+        "claimant_address": "820 Cedar Way, Portland OR 97201",
+        "adjuster_name": "Karen Smithson",
+        "supporting_doc_count": "2"
+      },
+      "expected_flags": [],
+      "relevant_clause_ids": ["COLLISION_D"],
+      "expected_recommendation": "APPROVE"
+    },
+    {
+      "doc_id": "claim_007",
+      "ground_truth": {
+        "claimant_name": "Amanda Torres",
+        "policy_number": "HO-2022-5543",
+        "incident_date": "2024-03-29",
+        "claim_filing_date": "2024-04-02",
+        "incident_type": "storm",
+        "incident_description": "Severe hailstorm damaged roof and broke three skylights",
+        "amount_claimed": "$15,500",
+        "claimant_address": "14 Willow Creek Road, Dallas TX 75201",
+        "adjuster_name": "Brian Foster",
+        "supporting_doc_count": "4"
+      },
+      "expected_flags": [],
+      "relevant_clause_ids": ["STORM_WEATHER_E"],
+      "expected_recommendation": "APPROVE"
+    },
+    {
+      "doc_id": "claim_008",
+      "ground_truth": {
+        "claimant_name": "Christopher Brown",
+        "policy_number": "HO-2021-7780",
+        "incident_date": "2024-07-05",
+        "claim_filing_date": "2024-07-09",
+        "incident_type": "theft",
+        "incident_description": "Break-in during home renovation left property unsecured and tools and equipment stolen",
+        "amount_claimed": "$42,000",
+        "claimant_address": "200 Redwood Avenue, Phoenix AZ 85001",
+        "adjuster_name": "Monica Reyes",
+        "supporting_doc_count": "3"
+      },
+      "expected_flags": ["AMOUNT_EXCEEDS_THEFT_LIMIT"],
+      "relevant_clause_ids": ["THEFT_VANDALISM_D"],
+      "expected_recommendation": "FLAG_FOR_REVIEW"
+    },
+    {
+      "doc_id": "claim_009",
+      "ground_truth": {
+        "claimant_name": "Michelle Kim",
+        "policy_number": "HO-2023-2255",
+        "incident_date": "2024-08-12",
+        "claim_filing_date": "2024-08-15",
+        "incident_type": "water",
+        "incident_description": "Air conditioning condensate overflow saturated ceiling and carpet in living room",
+        "amount_claimed": "$5,800",
+        "claimant_address": "77 Aspen Place, Boston MA 02101",
+        "adjuster_name": "James Harrington",
+        "supporting_doc_count": "3"
+      },
+      "expected_flags": [],
+      "relevant_clause_ids": ["WATER_DAMAGE_B"],
+      "expected_recommendation": "APPROVE"
+    },
+    {
+      "doc_id": "claim_010",
+      "ground_truth": {
+        "claimant_name": "Robert Jackson",
+        "policy_number": "HO-2020-4430",
+        "incident_date": "2024-09-01",
+        "claim_filing_date": "2024-09-05",
+        "incident_type": "fire",
+        "incident_description": "Wildfire spread from adjacent property destroying entire dwelling and outbuildings",
+        "amount_claimed": "$520,000",
+        "claimant_address": "3300 Chaparral Road, Sacramento CA 95814",
+        "adjuster_name": "Susan Andersen",
+        "supporting_doc_count": "10"
+      },
+      "expected_flags": ["AMOUNT_EXCEEDS_DWELLING_LIMIT"],
+      "relevant_clause_ids": ["FIRE_DAMAGE_C", "DWELLING_COVERAGE_A"],
+      "expected_recommendation": "FLAG_FOR_REVIEW"
+    },
+    {
+      "doc_id": "claim_011",
+      "ground_truth": {
+        "claimant_name": "Lisa Chen",
+        "policy_number": "HO-2022-6614",
+        "incident_date": "2024-10-17",
+        "claim_filing_date": "2024-10-22",
+        "incident_type": "water",
+        "incident_description": "Dishwasher supply hose failure flooded kitchen and dining room",
+        "amount_claimed": "$11,200",
+        "claimant_address": "450 Spruce Hill, Minneapolis MN 55401",
+        "adjuster_name": "Kevin Walsh",
+        "supporting_doc_count": "4"
+      },
+      "expected_flags": [],
+      "relevant_clause_ids": ["WATER_DAMAGE_B"],
+      "expected_recommendation": "APPROVE"
+    },
+    {
+      "doc_id": "claim_012",
+      "ground_truth": {
+        "claimant_name": "Daniel Ahmed",
+        "policy_number": "HO-2023-8891",
+        "incident_date": "2024-11-05",
+        "claim_filing_date": "2024-11-09",
+        "incident_type": "theft",
+        "incident_description": "Laptop, tablet, and camera equipment stolen from vehicle parked in driveway",
+        "amount_claimed": "$7,500",
+        "claimant_address": "123 Poplar Street, Chicago IL 60601",
+        "adjuster_name": "Angela Brooks",
+        "supporting_doc_count": "2"
+      },
+      "expected_flags": [],
+      "relevant_clause_ids": ["THEFT_VANDALISM_D"],
+      "expected_recommendation": "APPROVE"
+    },
+    {
+      "doc_id": "claim_013",
+      "ground_truth": {
+        "claimant_name": "Ashley Martinez",
+        "policy_number": "PAP-2022-3318",
+        "incident_date": "2024-12-02",
+        "claim_filing_date": "2024-12-05",
+        "incident_type": "auto",
+        "incident_description": "Side-swipe collision on highway damaged entire passenger side panels",
+        "amount_claimed": "$8,900",
+        "claimant_address": "88 Harbor Drive, San Diego CA 92101",
+        "adjuster_name": "Paul Nguyen",
+        "supporting_doc_count": "3"
+      },
+      "expected_flags": [],
+      "relevant_clause_ids": ["COLLISION_D"],
+      "expected_recommendation": "APPROVE"
+    },
+    {
+      "doc_id": "claim_014",
+      "ground_truth": {
+        "claimant_name": "Kevin Thompson",
+        "policy_number": "HO-2021-5522",
+        "incident_date": "2024-01-25",
+        "claim_filing_date": "2024-01-30",
+        "incident_type": "fire",
+        "incident_description": "Fireplace chimney fire spread to attic causing roof and structural damage",
+        "amount_claimed": "$67,000",
+        "claimant_address": "210 Walnut Grove, Nashville TN 37201",
+        "adjuster_name": "Diane Simmons",
+        "supporting_doc_count": "6"
+      },
+      "expected_flags": [],
+      "relevant_clause_ids": ["FIRE_DAMAGE_C"],
+      "expected_recommendation": "APPROVE"
+    },
+    {
+      "doc_id": "claim_015",
+      "ground_truth": {
+        "claimant_name": "Sandra Lee",
+        "policy_number": "HO-2023-7761",
+        "incident_date": "2024-02-14",
+        "claim_filing_date": "2024-02-19",
+        "incident_type": "water",
+        "incident_description": "Frozen pipe burst in utility room during winter storm caused widespread damage",
+        "amount_claimed": "$22,000",
+        "claimant_address": "675 Birchwood Lane, Columbus OH 43201",
+        "adjuster_name": "Mark Patterson",
+        "supporting_doc_count": "5"
+      },
+      "expected_flags": [],
+      "relevant_clause_ids": ["WATER_DAMAGE_B"],
+      "expected_recommendation": "APPROVE"
+    },
+    {
+      "doc_id": "claim_016",
+      "ground_truth": {
+        "claimant_name": "Matthew Wilson",
+        "policy_number": "HO-2020-9988",
+        "incident_date": "2024-05-20",
+        "claim_filing_date": "2024-05-24",
+        "incident_type": "storm",
+        "incident_description": "Tornado-strength winds stripped shingles and damaged gutters and siding",
+        "amount_claimed": "$19,800",
+        "claimant_address": "330 Prairie View, Kansas City MO 64101",
+        "adjuster_name": "Christine Hall",
+        "supporting_doc_count": "4"
+      },
+      "expected_flags": [],
+      "relevant_clause_ids": ["STORM_WEATHER_E"],
+      "expected_recommendation": "APPROVE"
+    },
+    {
+      "doc_id": "claim_017",
+      "ground_truth": {
+        "claimant_name": "Rachel Green",
+        "policy_number": "HO-2022-1133",
+        "incident_date": "2024-06-30",
+        "claim_filing_date": "2024-07-04",
+        "incident_type": "theft",
+        "incident_description": "Bicycle and gardening tools stolen from unlocked detached garage",
+        "amount_claimed": "$3,100",
+        "claimant_address": "55 Rosewood Court, Salt Lake City UT 84101",
+        "adjuster_name": "James Harrington",
+        "supporting_doc_count": "1"
+      },
+      "expected_flags": [],
+      "relevant_clause_ids": ["THEFT_VANDALISM_D"],
+      "expected_recommendation": "APPROVE"
+    },
+    {
+      "doc_id": "claim_018",
+      "ground_truth": {
+        "claimant_name": "Tyler Johnson",
+        "policy_number": "HO-2023-3374",
+        "incident_date": "2024-07-22",
+        "claim_filing_date": "2024-07-26",
+        "incident_type": "water",
+        "incident_description": "Water heater tank failure flooded utility closet and adjacent bedroom",
+        "amount_claimed": "$9,400",
+        "claimant_address": "190 Magnolia Street, Memphis TN 38101",
+        "adjuster_name": "Sandra Pierce",
+        "supporting_doc_count": "3"
+      },
+      "expected_flags": [],
+      "relevant_clause_ids": ["WATER_DAMAGE_B"],
+      "expected_recommendation": "APPROVE"
+    },
+    {
+      "doc_id": "claim_019",
+      "ground_truth": {
+        "claimant_name": "Olivia Davis",
+        "policy_number": "HO-2021-8823",
+        "incident_date": "2024-08-08",
+        "claim_filing_date": "2024-08-13",
+        "incident_type": "fire",
+        "incident_description": "Grease fire in kitchen destroyed cabinets appliances and caused structural damage",
+        "amount_claimed": "$31,500",
+        "claimant_address": "402 Chestnut Boulevard, Louisville KY 40201",
+        "adjuster_name": "Robert Chen",
+        "supporting_doc_count": "5"
+      },
+      "expected_flags": [],
+      "relevant_clause_ids": ["FIRE_DAMAGE_C"],
+      "expected_recommendation": "APPROVE"
+    },
+    {
+      "doc_id": "claim_020",
+      "ground_truth": {
+        "claimant_name": "Nathan White",
+        "policy_number": "PAP-2022-6655",
+        "incident_date": "2024-09-14",
+        "claim_filing_date": "2024-09-17",
+        "incident_type": "auto",
+        "incident_description": "Vehicle struck a deer on highway causing front end damage",
+        "amount_claimed": "$14,200",
+        "claimant_address": "780 Lakeview Terrace, Milwaukee WI 53201",
+        "adjuster_name": "Patricia Huang",
+        "supporting_doc_count": "3"
+      },
+      "expected_flags": [],
+      "relevant_clause_ids": ["COMPREHENSIVE_D"],
+      "expected_recommendation": "APPROVE"
+    },
+    {
+      "doc_id": "claim_021",
+      "ground_truth": {
+        "claimant_name": "Jessica Taylor",
+        "policy_number": "HO-2023-5509",
+        "incident_date": "2024-10-01",
+        "claim_filing_date": "2024-10-06",
+        "incident_type": "water",
+        "incident_description": "Toilet supply valve failed overnight saturating bathroom and hallway",
+        "amount_claimed": "$6,700",
+        "claimant_address": "62 Sycamore Lane, Raleigh NC 27601",
+        "adjuster_name": "Brian Foster",
+        "supporting_doc_count": "2"
+      },
+      "expected_flags": [],
+      "relevant_clause_ids": ["WATER_DAMAGE_B"],
+      "expected_recommendation": "APPROVE"
+    },
+    {
+      "doc_id": "claim_022",
+      "ground_truth": {
+        "claimant_name": "Ryan Scott",
+        "policy_number": "HO-2020-2241",
+        "incident_date": "2024-11-10",
+        "claim_filing_date": "2024-11-14",
+        "incident_type": "theft",
+        "incident_description": "Professional camera equipment and musical instruments stolen during break-in",
+        "amount_claimed": "$18,500",
+        "claimant_address": "500 Oakwood Drive, Richmond VA 23201",
+        "adjuster_name": "Angela Brooks",
+        "supporting_doc_count": "4"
+      },
+      "expected_flags": ["AMOUNT_EXCEEDS_THEFT_LIMIT"],
+      "relevant_clause_ids": ["THEFT_VANDALISM_D"],
+      "expected_recommendation": "FLAG_FOR_REVIEW"
+    },
+    {
+      "doc_id": "claim_023",
+      "ground_truth": {
+        "claimant_name": "Emma Anderson",
+        "policy_number": "HO-2022-4477",
+        "incident_date": "2024-12-15",
+        "claim_filing_date": "2024-12-19",
+        "incident_type": "fire",
+        "incident_description": "Holiday candle left unattended started a fire destroying living room and two bedrooms",
+        "amount_claimed": "$88,000",
+        "claimant_address": "145 Ironwood Circle, Hartford CT 06101",
+        "adjuster_name": "Thomas Grant",
+        "supporting_doc_count": "7"
+      },
+      "expected_flags": [],
+      "relevant_clause_ids": ["FIRE_DAMAGE_C"],
+      "expected_recommendation": "APPROVE"
+    },
+    {
+      "doc_id": "claim_024",
+      "ground_truth": {
+        "claimant_name": "Justin Thomas",
+        "policy_number": "HO-2023-6682",
+        "incident_date": "2025-01-07",
+        "claim_filing_date": "2025-01-11",
+        "incident_type": "water",
+        "incident_description": "Roof drain clogged during heavy rainfall causing interior ceiling collapse",
+        "amount_claimed": "$4,300",
+        "claimant_address": "37 Creekside Way, Baton Rouge LA 70801",
+        "adjuster_name": "Kevin Walsh",
+        "supporting_doc_count": "3"
+      },
+      "expected_flags": [],
+      "relevant_clause_ids": ["WATER_DAMAGE_B"],
+      "expected_recommendation": "APPROVE"
+    },
+    {
+      "doc_id": "claim_025",
+      "ground_truth": {
+        "claimant_name": "Sophia Garcia",
+        "policy_number": "HO-2021-3315",
+        "incident_date": "2025-02-18",
+        "claim_filing_date": "2025-02-22",
+        "incident_type": "storm",
+        "incident_description": "Hurricane force winds toppled large oak tree onto roof causing structural damage",
+        "amount_claimed": "$25,000",
+        "claimant_address": "900 Gulf Shore Boulevard, Tampa FL 33601",
+        "adjuster_name": "Monica Reyes",
+        "supporting_doc_count": "5"
+      },
+      "expected_flags": [],
+      "relevant_clause_ids": ["STORM_WEATHER_E"],
+      "expected_recommendation": "APPROVE"
+    },
+    {
+      "doc_id": "claim_026",
+      "ground_truth": {
+        "claimant_name": "Andrew Martinez",
+        "policy_number": "PAP-2023-8819",
+        "incident_date": "2025-03-05",
+        "claim_filing_date": "2025-03-08",
+        "incident_type": "auto",
+        "incident_description": "Parking lot collision caused door panel and mirror damage on driver side",
+        "amount_claimed": "$11,600",
+        "claimant_address": "280 Linden Avenue, Albuquerque NM 87101",
+        "adjuster_name": "Diane Simmons",
+        "supporting_doc_count": "3"
+      },
+      "expected_flags": [],
+      "relevant_clause_ids": ["COLLISION_D"],
+      "expected_recommendation": "APPROVE"
+    },
+    {
+      "doc_id": "claim_027",
+      "ground_truth": {
+        "claimant_name": "Hannah Brown",
+        "policy_number": "HO-2022-7730",
+        "incident_date": "2025-04-10",
+        "claim_filing_date": "2025-04-14",
+        "incident_type": "water",
+        "incident_description": "Washing machine drain hose disconnected flooding laundry room and hallway",
+        "amount_claimed": "$16,900",
+        "claimant_address": "115 Hickory Hill Road, Cincinnati OH 45201",
+        "adjuster_name": "Susan Andersen",
+        "supporting_doc_count": "4"
+      },
+      "expected_flags": [],
+      "relevant_clause_ids": ["WATER_DAMAGE_B"],
+      "expected_recommendation": "APPROVE"
+    },
+    {
+      "doc_id": "claim_028",
+      "ground_truth": {
+        "claimant_name": "Brandon Lewis",
+        "policy_number": "HO-2023-1198",
+        "incident_date": "2025-05-02",
+        "claim_filing_date": "2025-05-06",
+        "incident_type": "theft",
+        "incident_description": "Lawn mower and outdoor furniture stolen from backyard shed",
+        "amount_claimed": "$5,200",
+        "claimant_address": "660 Meadowbrook Drive, Indianapolis IN 46201",
+        "adjuster_name": "Mark Patterson",
+        "supporting_doc_count": "2"
+      },
+      "expected_flags": [],
+      "relevant_clause_ids": ["THEFT_VANDALISM_D"],
+      "expected_recommendation": "APPROVE"
+    },
+    {
+      "doc_id": "claim_029",
+      "ground_truth": {
+        "claimant_name": "Megan Clark",
+        "policy_number": "HO-2019-0051",
+        "incident_date": "2025-05-20",
+        "claim_filing_date": "2025-05-24",
+        "incident_type": "fire",
+        "incident_description": "Suspected arson destroyed entire dwelling structure and all personal property",
+        "amount_claimed": "$540,000",
+        "claimant_address": "12 Harborview Road, Providence RI 02901",
+        "adjuster_name": "David Okafor",
+        "supporting_doc_count": "2"
+      },
+      "expected_flags": ["AMOUNT_EXCEEDS_DWELLING_LIMIT", "FRAUD_RISK_HIGH"],
+      "relevant_clause_ids": ["FIRE_DAMAGE_C", "DWELLING_COVERAGE_A"],
+      "expected_recommendation": "REJECT"
+    },
+    {
+      "doc_id": "claim_030",
+      "ground_truth": {
+        "claimant_name": "Jacob Robinson",
+        "policy_number": "HO-2023-2255",
+        "incident_date": "2024-08-12",
+        "claim_filing_date": "2025-06-01",
+        "incident_type": "water",
+        "incident_description": "Air conditioning condensate overflow saturated ceiling and carpet in living room",
+        "amount_claimed": "$5,800",
+        "claimant_address": "77 Aspen Place, Boston MA 02101",
+        "adjuster_name": "James Harrington",
+        "supporting_doc_count": "3"
+      },
+      "expected_flags": ["DUPLICATE_CLAIM"],
+      "relevant_clause_ids": ["WATER_DAMAGE_B", "DUPLICATE_CLAIMS"],
+      "expected_recommendation": "REJECT",
+      "_note": "Intentional duplicate of claim_009 — same policy, same incident, same amount, filed months later"
+    }
+  ]
+}

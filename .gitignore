@@ -1,0 +1,39 @@
+# Secrets — NEVER commit these
+.env
+
+# Byte-compiled
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual env
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Data (downloaded datasets — large)
+data/funsd/
+data/docvqa/
+data/uploads/
+data/logs/
+
+# Frontend
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+
+# Keep the golden set template tracked
+!data/golden_set.csv
+
+# Docker
+pgdata/
+
+# OS
+.DS_Store
+Thumbs.db
+

@@ -1,0 +1,11 @@
+.venv
+.git
+__pycache__
+*.pyc
+data/funsd
+data/docvqa
+data/uploads
+frontend/node_modules
+frontend/.next
+*.egg-info
+.env

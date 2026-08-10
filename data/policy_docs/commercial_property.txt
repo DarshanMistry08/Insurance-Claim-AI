@@ -1,0 +1,56 @@
+COMMERCIAL PROPERTY INSURANCE POLICY — BUILDING AND BUSINESS PERSONAL PROPERTY
+Policy Effective: January 1, 2023 — December 31, 2027
+Issuing Company: Meridian Commercial Insurance Corporation
+Policy Form: CP-1 (Commercial Property Policy — Causes of Loss Broad Form)
+
+==============================================================
+BUILDING AND STRUCTURE COVERAGE
+==============================================================
+
+CLAUSE COMMERCIAL_BUILDING_A
+Building Coverage
+The Company will pay for direct physical loss to buildings described in the Declarations caused by a covered cause of loss. Coverage limit: $2,000,000 per building per occurrence. Coverage includes permanent fixtures, machinery, and equipment that is part of the building. Outdoor signs attached to the building: included up to $10,000.
+
+==============================================================
+BUSINESS PERSONAL PROPERTY
+==============================================================
+
+CLAUSE COMMERCIAL_CONTENTS_B
+Business Personal Property
+Coverage applies to business personal property owned by the insured and located in or on the described building, including furniture, fixtures, machinery, equipment, stock, and improvements. Limit: $500,000. Property of others in the insured's care, custody, or control: included up to $25,000. Electronic data and software: covered up to $50,000.
+
+==============================================================
+WEATHER AND NATURAL PERILS
+==============================================================
+
+CLAUSE STORM_COMMERCIAL_E
+Windstorm, Hail, and Weather — Commercial
+Direct loss or damage to covered property caused by windstorm, tornado, hurricane, or hail is covered up to $200,000 per occurrence for commercial buildings. Damage to outdoor property, signs, awnings, and equipment not in a building is limited to $10,000. Roof inspections within 3 years of policy inception are required for full wind coverage.
+
+CLAUSE FLOOD_COMMERCIAL_F
+Commercial Flood Coverage
+Unlike residential policies, this commercial policy INCLUDES limited flood coverage with a sub-limit of $100,000 per occurrence for direct flood damage to the building and its contents when caused by an overflow of an adjacent waterway. External flood deductible: $5,000. This coverage requires a separate flood endorsement; if the endorsement is not attached, flood is excluded.
+
+==============================================================
+BUSINESS INTERRUPTION
+==============================================================
+
+CLAUSE BUSINESS_INTERRUPTION_G
+Business Income and Extra Expense
+The Company will pay for the actual loss of business income sustained due to the necessary suspension of operations during the period of restoration caused by a covered loss. Maximum indemnity period: 12 months. Extra expense limit: $50,000. Coverage begins 72 hours after the date of the direct physical loss.
+
+==============================================================
+COMMERCIAL POLICY CONDITIONS
+==============================================================
+
+CLAUSE COMMERCIAL_CLAIM_REPORTING
+Commercial Claim Reporting
+Losses must be reported to the Company within 30 days of discovery (vs. 60 days for personal lines). The insured must: (a) take immediate steps to protect property; (b) provide a complete sworn statement of loss within 60 days of request; (c) cooperate fully with the adjuster. Delays in reporting may affect coverage.
+
+CLAUSE COMMERCIAL_DEDUCTIBLE
+Commercial Deductible Schedule
+Standard deductible: $2,500 per occurrence. Wind/hail deductible: 2% of insured value with a minimum of $5,000. Flood deductible (if endorsed): $5,000. The deductible is applied per occurrence regardless of the number of buildings or items affected.
+
+CLAUSE COMMERCIAL_VALUATION
+Valuation and Coinsurance
+Buildings are insured at replacement cost value (RCV) provided the insured maintains coverage equal to at least 80% of the full replacement cost. Failure to meet the coinsurance requirement will result in a proportional reduction in claim payment. Business personal property is valued at actual cash value (ACV) unless a replacement cost endorsement is attached.

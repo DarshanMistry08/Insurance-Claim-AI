@@ -1,0 +1,60 @@
+AUTOMOBILE INSURANCE POLICY — COMPREHENSIVE & COLLISION
+Policy Effective: January 1, 2023 — December 31, 2027
+Issuing Company: Meridian Auto Insurance Corporation
+Policy Form: PAP-1 (Personal Auto Policy)
+
+==============================================================
+PART A — LIABILITY COVERAGE
+==============================================================
+
+CLAUSE AUTO_LIABILITY_A
+Bodily Injury and Property Damage Liability
+The Company will pay damages for bodily injury or property damage for which any covered person becomes legally responsible because of an auto accident. Coverage limit: $100,000 per person / $300,000 per occurrence for bodily injury; $100,000 per occurrence for property damage. Defense costs are paid in addition to the limits. Coverage applies to vehicles listed in the Declarations and any newly acquired vehicle for the first 30 days.
+
+==============================================================
+PART B — MEDICAL PAYMENTS COVERAGE
+==============================================================
+
+CLAUSE MEDICAL_PAYMENTS_B
+Medical Payments
+The Company will pay medical expenses incurred by a covered person for bodily injury caused by an accident. Limit: $10,000 per person per accident. Expenses must be incurred within 3 years of the date of the accident. Coverage applies regardless of fault.
+
+==============================================================
+PART C — UNINSURED MOTORIST COVERAGE
+==============================================================
+
+CLAUSE UNINSURED_MOTORIST_C
+Uninsured and Underinsured Motorist Coverage
+The Company will pay compensatory damages an insured is legally entitled to recover from the owner or operator of an uninsured motor vehicle. Limit: $50,000 per person / $100,000 per occurrence. Hit-and-run accidents are covered when reported to police within 24 hours.
+
+==============================================================
+PART D — COVERAGE FOR DAMAGE TO YOUR AUTO
+==============================================================
+
+CLAUSE COLLISION_D
+Collision Coverage
+The Company will pay for direct and accidental loss to a covered auto caused by collision. Deductible: $500 per occurrence. Limit: Actual Cash Value (ACV) of the vehicle at time of loss. Total loss is declared when repair cost exceeds 75% of ACV. Rental reimbursement: $50/day up to 30 days while vehicle is being repaired.
+
+CLAUSE COMPREHENSIVE_D
+Comprehensive Coverage (Other Than Collision)
+Coverage applies to loss caused by fire, theft, vandalism, glass breakage, falling objects, earthquake, flood, windstorm, hail, or contact with an animal. Deductible: $250 per occurrence. Limit: Actual Cash Value of the vehicle. Theft must be reported to police within 24 hours of discovery.
+
+==============================================================
+PART E — DUTIES AFTER AN ACCIDENT OR LOSS
+==============================================================
+
+CLAUSE AUTO_CLAIM_REPORTING
+Claim Reporting for Auto Incidents
+The insured must: (1) report the accident to local law enforcement when required by law; (2) notify the Company within 30 days of the accident; (3) cooperate with the Company's investigation; (4) submit a signed proof of loss statement within 60 days of request. Failure to comply may result in denial of the claim.
+
+==============================================================
+PART F — GENERAL PROVISIONS
+==============================================================
+
+CLAUSE AUTO_POLICY_PERIOD
+Auto Policy Period
+Coverage is effective only for accidents or losses occurring during the policy period shown in the Declarations. Premium must be paid in full for coverage to remain in force. Mid-term cancellation results in a pro-rated premium refund.
+
+CLAUSE AUTO_FRAUD
+Fraud and Misrepresentation
+Any fraud or misrepresentation in connection with this insurance, including staging accidents or inflating repair estimates, voids coverage and may result in criminal prosecution. The Company participates in the Insurance Fraud Bureau database to detect duplicate and fraudulent claims.

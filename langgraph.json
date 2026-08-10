@@ -1,0 +1,7 @@
+{
+  "dependencies": ["."],
+  "graphs": {
+    "claims_pipeline": "./pipeline/graph.py:app"
+  },
+  "env": ".env"
+}

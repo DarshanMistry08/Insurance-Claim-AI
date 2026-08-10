@@ -1,0 +1,51 @@
+doc_id,field_name,ground_truth_value,confidence_note
+funsd_train_0000,claimant_name,John Doe,Synthetic label
+funsd_train_0000,policy_number,POL-12345,Synthetic label
+funsd_train_0000,incident_date,2023-01-15,Synthetic label
+funsd_train_0000,claim_filing_date,2023-01-20,Synthetic label
+funsd_train_0000,incident_type,water,Synthetic label
+funsd_train_0000,incident_description,Pipe burst in kitchen,Synthetic label
+funsd_train_0000,amount_claimed,5000,Synthetic label
+funsd_train_0000,claimant_address,"123 Main St, Anytown",Synthetic label
+funsd_train_0000,adjuster_name,Jane Smith,Synthetic label
+funsd_train_0000,supporting_doc_count,2,Synthetic label
+funsd_train_0001,claimant_name,John Doe,Synthetic label
+funsd_train_0001,policy_number,POL-12345,Synthetic label
+funsd_train_0001,incident_date,2023-01-15,Synthetic label
+funsd_train_0001,claim_filing_date,2023-01-20,Synthetic label
+funsd_train_0001,incident_type,water,Synthetic label
+funsd_train_0001,incident_description,Pipe burst in kitchen,Synthetic label
+funsd_train_0001,amount_claimed,6000,Synthetic label
+funsd_train_0001,claimant_address,"123 Main St, Anytown",Synthetic label
+funsd_train_0001,adjuster_name,Jane Smith,Synthetic label
+funsd_train_0001,supporting_doc_count,2,Synthetic label
+funsd_train_0002,claimant_name,John Doe,Synthetic label
+funsd_train_0002,policy_number,POL-12345,Synthetic label
+funsd_train_0002,incident_date,2023-01-15,Synthetic label
+funsd_train_0002,claim_filing_date,2023-01-20,Synthetic label
+funsd_train_0002,incident_type,water,Synthetic label
+funsd_train_0002,incident_description,Pipe burst in kitchen,Synthetic label
+funsd_train_0002,amount_claimed,7000,Synthetic label
+funsd_train_0002,claimant_address,"123 Main St, Anytown",Synthetic label
+funsd_train_0002,adjuster_name,Jane Smith,Synthetic label
+funsd_train_0002,supporting_doc_count,2,Synthetic label
+funsd_train_0003,claimant_name,John Doe,Synthetic label
+funsd_train_0003,policy_number,POL-12345,Synthetic label
+funsd_train_0003,incident_date,2023-01-15,Synthetic label
+funsd_train_0003,claim_filing_date,2023-01-20,Synthetic label
+funsd_train_0003,incident_type,water,Synthetic label
+funsd_train_0003,incident_description,Pipe burst in kitchen,Synthetic label
+funsd_train_0003,amount_claimed,8000,Synthetic label
+funsd_train_0003,claimant_address,"123 Main St, Anytown",Synthetic label
+funsd_train_0003,adjuster_name,Jane Smith,Synthetic label
+funsd_train_0003,supporting_doc_count,2,Synthetic label
+funsd_train_0004,claimant_name,John Doe,Synthetic label
+funsd_train_0004,policy_number,POL-12345,Synthetic label
+funsd_train_0004,incident_date,2023-01-15,Synthetic label
+funsd_train_0004,claim_filing_date,2023-01-20,Synthetic label
+funsd_train_0004,incident_type,water,Synthetic label
+funsd_train_0004,incident_description,Pipe burst in kitchen,Synthetic label
+funsd_train_0004,amount_claimed,9000,Synthetic label
+funsd_train_0004,claimant_address,"123 Main St, Anytown",Synthetic label
+funsd_train_0004,adjuster_name,Jane Smith,Synthetic label
+funsd_train_0004,supporting_doc_count,2,Synthetic label

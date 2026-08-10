@@ -1,0 +1,61 @@
+HOMEOWNERS INSURANCE POLICY — STANDARD FORM HO-3
+Policy Effective: January 1, 2023 — December 31, 2027
+Issuing Company: Meridian Home Insurance Corporation
+Policy Form: HO-3 (Special Form)
+
+==============================================================
+SECTION I — PROPERTY COVERAGE
+==============================================================
+
+CLAUSE DWELLING_COVERAGE_A
+Coverage A — Dwelling
+The Company agrees to pay for direct physical loss to the dwelling described in the Declarations, including structures attached to the dwelling, up to a maximum limit of $500,000 per occurrence. This coverage applies to losses caused by any peril not specifically excluded in Section I — Exclusions.
+
+CLAUSE WATER_DAMAGE_B
+Coverage B — Water Damage (Accidental Discharge)
+Damage caused by the accidental or sudden discharge, leakage, or overflow of water or steam from within a plumbing, heating, air conditioning, or automatic fire protective sprinkler system, or from within a household appliance is covered. Maximum coverage limit: $25,000 per incident. This clause does NOT cover: (1) flood water originating from outside the dwelling; (2) gradual leakage or seepage; (3) damage from failure to maintain plumbing. A separate flood rider is required for external flooding. Deductible of $1,000 applies.
+
+CLAUSE FIRE_DAMAGE_C
+Coverage C — Fire and Lightning
+Damage caused by fire or lightning, including smoke damage and firefighter damage during suppression, is covered up to the full dwelling limit of $500,000. Losses must be reported within 60 days of the incident. Arson by the insured or any member of the household voids this coverage entirely. Documentation required: fire department report, photographs, repair estimates from licensed contractors.
+
+CLAUSE THEFT_VANDALISM_D
+Coverage D — Theft and Vandalism
+Loss or damage to personal property resulting from theft, attempted theft, or vandalism is covered up to $15,000 per incident. High-value items — including jewelry, fine art, collectibles, furs, and electronics exceeding $2,000 per item — require a scheduled personal property rider for full replacement cost coverage. Items without a rider are subject to a $2,000 sub-limit per item.
+
+CLAUSE STORM_WEATHER_E
+Coverage E — Windstorm, Hail, and Weather Events
+Damage directly caused by windstorm, hail, tornado, or hurricane is covered up to $75,000 per occurrence. Roof damage from wind requires documentation that the roof was in serviceable condition at policy inception. Ice dam damage is covered only when caused by a single storm event. Coverage does not apply to damage from flooding following storm surge.
+
+==============================================================
+SECTION II — EXCLUSIONS
+==============================================================
+
+The following perils are NOT covered under this policy:
+1. Earthquake and earth movement of any kind
+2. Flood, surface water, tidal water, or overflow of any body of water
+3. Mould, fungus, or wet rot unless directly resulting from a covered water loss
+4. Intentional acts by the insured
+5. War, nuclear hazard, or acts of terrorism
+6. Neglect or failure to use reasonable means to save property after a loss
+7. Ordinance or law (unless Ordinance or Law endorsement is attached)
+
+==============================================================
+SECTION III — POLICY CONDITIONS
+==============================================================
+
+CLAUSE POLICY_PERIOD
+Policy Period and Cancellation
+This policy is in force from the effective date to the expiration date shown in the Declarations. Claims for incidents occurring outside this period will be denied. The Company may cancel this policy with 30 days written notice (10 days for non-payment of premium).
+
+CLAUSE CLAIM_REPORTING
+Claim Reporting Requirements
+The insured must report all losses to the Company within 60 days of discovery. Late-reported claims (beyond 60 days) may be denied due to late notice unless the insured demonstrates reasonable cause for delay. The insured must: (a) protect property from further damage, (b) provide a complete written inventory of damaged property, (c) submit to examination under oath if requested.
+
+CLAUSE DEDUCTIBLE
+Standard Deductible
+A deductible of $1,000 applies to all covered losses unless a different deductible amount is shown in the Declarations. The deductible is applied per occurrence, not per item. Wind/hail deductible may differ — see Declarations page.
+
+CLAUSE DUPLICATE_CLAIMS
+Fraud and Duplicate Claims
+The Company reserves the right to deny any claim that appears to be a duplicate of a previously filed claim for the same occurrence. Filing a fraudulent claim is a felony and will result in immediate policy cancellation, denial of all claims, and referral to law enforcement.

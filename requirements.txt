@@ -1,0 +1,35 @@
+# Core
+datasets>=2.19
+Pillow>=10.0
+huggingface-hub>=0.23
+
+# Database
+psycopg2-binary>=2.9
+pgvector>=0.2
+
+# Embeddings
+sentence-transformers>=2.7
+
+# CLI & Display
+rich>=13.0
+click>=8.1
+
+# Data handling
+pandas>=2.1
+
+# Phase 2
+transformers>=4.40
+torch>=2.2
+openai>=1.0
+langchain>=0.2
+langgraph>=0.1
+langchain-ollama>=0.1
+langfuse>=2.0
+fastapi>=0.111
+uvicorn>=0.29
+python-multipart>=0.0.9
+python-dotenv>=1.0.0
+structlog>=24.1.0
+pytesseract>=0.3
+opencv-python-headless>=4.8.0
+numpy>=1.24.0
