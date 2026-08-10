@@ -1,15 +1,3 @@
-"""
-agents/fraud_scoring_agent.py — Fraud Scoring Agent (Node 4 of 5).
-
-Two-pronged fraud detection:
-  1. Zero-shot classification via facebook/bart-large-mnli (HF Inference API)
-     Labels: legitimate | suspicious | fraudulent
-  2. Embedding-based duplicate detection against the claims_history pgvector index
-     Cosine similarity > DUPLICATE_THRESHOLD → DUPLICATE_CLAIM flag
-
-Fallback: if HF API unavailable, uses Ollama zero-shot prompt.
-"""
-
 from __future__ import annotations
 import os
 import re
@@ -54,13 +42,7 @@ def _field_val(extracted_fields: dict, name: str) -> str:
     return (f.get("value", "N/A") if isinstance(f, dict) else str(f))
 
 
-# ─── Zero-shot classification ─────────────────────────────────── #
-
 def _classify_via_bart(claim_text: str) -> tuple[str, float]:
-    """
-    Zero-shot classification via facebook/bart-large-mnli.
-    Returns (label, confidence).
-    """
     headers = {"Content-Type": "application/json"}
     if HF_TOKEN:
         headers["Authorization"] = f"Bearer {HF_TOKEN}"
@@ -89,7 +71,6 @@ def _classify_via_bart(claim_text: str) -> tuple[str, float]:
     label = labels[top_idx]
     score = float(scores[top_idx]) if scores else 0.5
 
-    # Normalise label
     if "fraudulent" in label:
         return "fraudulent", score
     if "suspicious" in label:
@@ -98,10 +79,8 @@ def _classify_via_bart(claim_text: str) -> tuple[str, float]:
 
 
 def _classify_via_ollama(extracted_fields: dict, flags: list, verification: dict, is_duplicate: bool) -> tuple[str, float, str]:
-    """Ask Ollama to comprehensively classify the claim and provide a reason."""
-    # Simplify fields for prompt
     simple_fields = {k: v.get("value", "N/A") for k, v in extracted_fields.items() if isinstance(v, dict)}
-    
+
     prompt = f"""Assess this insurance claim for fraud risk.
 Consider the extracted fields, existing flags, policy verification, and duplicate status.
 Return ONLY a JSON: {{"label": "legitimate"|"suspicious"|"fraudulent", "confidence": 0.0-1.0, "reason": "Detailed 1-2 sentence explanation of why this risk level was assigned based on the data."}}
@@ -128,10 +107,7 @@ Is Duplicate: {is_duplicate}
     return "legitimate", 0.5, "Failed to parse reasoning."
 
 
-# ─── Duplicate detection ──────────────────────────────────────── #
-
 def _build_claim_text(extracted_fields: dict) -> str:
-    """Create a compact text representation of the claim for embedding."""
     parts = [
         _field_val(extracted_fields, "claimant_name"),
         _field_val(extracted_fields, "policy_number"),
@@ -144,10 +120,7 @@ def _build_claim_text(extracted_fields: dict) -> str:
 
 
 def _check_duplicate(doc_id: str, claim_text: str) -> tuple[bool, float, str]:
-    """
-    Embed the claim and check cosine similarity against claims_history.
-    Returns (is_duplicate, similarity_score, matching_claim_ref).
-    """
+    """Returns (is_duplicate, similarity_score, matching_claim_ref)."""
     model = _get_model()
     emb = model.encode(claim_text).tolist()
 
@@ -179,7 +152,6 @@ def _check_duplicate(doc_id: str, claim_text: str) -> tuple[bool, float, str]:
 
 
 def _store_claim_in_history(doc_id: str, extracted_fields: dict, claim_text: str) -> None:
-    """Insert the current claim into the history index."""
     model = _get_model()
     emb = model.encode(claim_text).tolist()
 
@@ -204,13 +176,7 @@ def _store_claim_in_history(doc_id: str, extracted_fields: dict, claim_text: str
         logger.warning("fraud_scoring: history insert error: %s", e)
 
 
-# ─── Agent node ───────────────────────────────────────────────── #
-
 def node_fraud_scoring(state: ClaimState) -> dict:
-    """
-    LangGraph node — Fraud Scoring Agent.
-    Runs embedding duplicate detection, then comprehensive Ollama fraud assessment.
-    """
     doc_id = state["doc_id"]
     doc_type = state.get("document_type", "unknown")
     extracted_fields = state.get("extracted_fields", {})
@@ -220,7 +186,6 @@ def node_fraud_scoring(state: ClaimState) -> dict:
     with NodeTracer("fraud_scoring_agent", trace_id=doc_id, inputs={"doc_id": doc_id}) as tracer:
         t0 = time.perf_counter()
 
-        # Non-claim document types do not undergo claim fraud/duplicate scoring
         if doc_type != "claim_form":
             result = FraudResult(
                 label="legitimate",
@@ -245,6 +210,7 @@ def node_fraud_scoring(state: ClaimState) -> dict:
                 "flags": [],
                 "agent_trace": [log.model_dump()],
             }
+
         error_msg = ""
         label = "legitimate"
         confidence = 0.5
@@ -257,7 +223,7 @@ def node_fraud_scoring(state: ClaimState) -> dict:
 
         claim_text = _build_claim_text(extracted_fields)
 
-        # — Duplicate detection FIRST so we can use it in fraud assessment —
+        # Run duplicate check first so the result feeds into the fraud assessment
         try:
             is_dup, dup_sim, dup_ref = _check_duplicate(doc_id, claim_text)
             if is_dup:
@@ -274,7 +240,6 @@ def node_fraud_scoring(state: ClaimState) -> dict:
         except Exception as e:
             logger.warning("fraud_scoring: duplicate check failed: %s", e)
 
-        # — Comprehensive Zero-shot classification —
         try:
             label, confidence, reason = _classify_via_ollama(extracted_fields, existing_flags + [f.model_dump() for f in new_flags], verification, is_dup)
             logger.info("fraud_scoring: label=%s confidence=%.2f method=%s doc_id=%s", label, confidence, method, doc_id)

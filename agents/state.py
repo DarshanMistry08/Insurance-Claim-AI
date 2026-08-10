@@ -1,19 +1,8 @@
-"""
-agents/state.py — Typed state schema for the ClaimSight LangGraph pipeline.
-
-All Pydantic sub-models define the rich internal structure.
-ClaimState (TypedDict) is the LangGraph-compatible outer state container.
-Each agent deserialises its slice into Pydantic for validation, then writes
-back as plain dicts (JSON-serialisable) for LangGraph merge.
-"""
-
 from __future__ import annotations
 from typing import TypedDict, Annotated
 import operator
 from pydantic import BaseModel, Field
 
-
-# ─── Sub-model: Extracted Field ───────────────────────────────── #
 
 class ExtractedField(BaseModel):
     value: str = ""
@@ -26,16 +15,12 @@ class ExtractedField(BaseModel):
         return self.value
 
 
-# ─── Sub-model: Policy Clause (RAG result) ────────────────────── #
-
 class PolicyClause(BaseModel):
     clause_id: str = ""
     policy_doc: str = ""
     chunk_text: str = ""
     similarity_score: float = 0.0
 
-
-# ─── Sub-model: Verification ──────────────────────────────────── #
 
 class VerificationFinding(BaseModel):
     field_ref: str            # e.g. "amount_claimed"
@@ -51,8 +36,6 @@ class VerificationVerdict(BaseModel):
     findings: list[VerificationFinding] = Field(default_factory=list)
 
 
-# ─── Sub-model: Fraud Result ──────────────────────────────────── #
-
 class FraudResult(BaseModel):
     label: str = "legitimate"       # "legitimate" | "fraudulent" | "suspicious"
     confidence: float = 0.0
@@ -62,8 +45,6 @@ class FraudResult(BaseModel):
     duplicate_match_id: str = ""
     method: str = "unknown"         # "bart_zero_shot" | "ollama_fallback"
 
-
-# ─── Sub-model: Flag ──────────────────────────────────────────── #
 
 class Flag(BaseModel):
     code: str                        # e.g. "AMOUNT_EXCEEDS_WATER_LIMIT"
@@ -76,15 +57,11 @@ class Flag(BaseModel):
         return f"{self.code}: {self.description}"
 
 
-# ─── Sub-model: Citation ──────────────────────────────────────── #
-
 class Citation(BaseModel):
     field_ref: str = ""
     clause_ref: str = ""
     rationale: str
 
-
-# ─── Sub-model: Adjuster Summary ──────────────────────────────── #
 
 class AdjusterSummary(BaseModel):
     recommendation: str = "FLAG_FOR_REVIEW"   # "APPROVE" | "FLAG_FOR_REVIEW" | "REJECT"
@@ -92,8 +69,6 @@ class AdjusterSummary(BaseModel):
     summary_text: str = ""
     citations: list[Citation] = Field(default_factory=list)
 
-
-# ─── Sub-model: Node Execution Log ───────────────────────────── #
 
 class NodeLog(BaseModel):
     node_name: str
@@ -103,15 +78,12 @@ class NodeLog(BaseModel):
     error: str = ""
 
 
-# ─── LangGraph State ──────────────────────────────────────────── #
-# TypedDict with Annotated[list, operator.add] for accumulating lists.
-
 class ClaimState(TypedDict):
     # Input
     doc_id: str
     image_path: str
 
-    # Document Classification State
+    # Document Classification
     document_type: str            # policy_schedule | claim_form | medical_bill_invoice | discharge_summary | kyc_id_proof | claims_history_record | unknown
     document_type_confidence: float
     classification_status: str    # "certain" | "uncertain"
@@ -134,10 +106,7 @@ class ClaimState(TypedDict):
     final_summary_text: str
 
 
-# ─── Helpers ──────────────────────────────────────────────────── #
-
 def empty_state(doc_id: str, image_path: str) -> ClaimState:
-    """Return a blank initial state for a new claim."""
     return ClaimState(
         doc_id=doc_id,
         image_path=image_path,

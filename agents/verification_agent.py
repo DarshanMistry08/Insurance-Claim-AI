@@ -1,16 +1,3 @@
-"""
-agents/verification_agent.py — Policy Verification Agent (Node 3 of 5).
-
-Dispatches to isolated handlers based on document_type:
-  - POLICY_SCHEDULE_VERIFICATION_HANDLER: builds structured output from already-extracted fields.
-    No LLM call, no RAG search — fields already available from extraction step.
-  - CLAIM_FORM_VERIFICATION_HANDLER: original RAG + LLM logic, unchanged.
-  - All other doc types: instant bypass with clear "not applicable" output.
-
-Produces a VerificationVerdict + structured policy_context string in the exact
-format the frontend's parsePolicyContext() parser expects.
-"""
-
 from __future__ import annotations
 import os
 import re
@@ -30,8 +17,6 @@ OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
 OLLAMA_MODEL    = os.getenv("OLLAMA_MODEL", "llama3.2")
 
 
-# ─── Helper ───────────────────────────────────────────────────── #
-
 def _field_val(extracted_fields: dict, name: str) -> str:
     f = extracted_fields.get(name, {})
     if isinstance(f, dict):
@@ -40,8 +25,6 @@ def _field_val(extracted_fields: dict, name: str) -> str:
     return str(f) if f else ""
 
 
-# ─── HANDLER 1: Policy Schedule ───────────────────────────────── #
-
 def _handle_policy_schedule(
     doc_id: str,
     extracted_fields: dict,
@@ -49,13 +32,8 @@ def _handle_policy_schedule(
     t0: float,
 ) -> dict:
     """
-    Policy Schedule Verification Handler.
-
-    Populates the Retrieved Policy Analysis panel directly from already-extracted
-    fields. No LLM call. No RAG search (there is no incident to search with).
-
-    Returns coverage_status='schedule_verified' when key fields extracted OK,
-    'uncertain' only if sum_insured or scheme_description are missing.
+    Builds the verification output directly from extracted schedule fields.
+    No LLM call needed — there's no incident to verify against policy clauses.
     """
     sum_insured        = _field_val(extracted_fields, "sum_insured")
     scheme_description = _field_val(extracted_fields, "scheme_description")
@@ -66,7 +44,6 @@ def _handle_policy_schedule(
     policy_number      = _field_val(extracted_fields, "policy_number")
     insured_persons    = _field_val(extracted_fields, "insured_persons")
 
-    # Covered Items: scheme + insured persons if available
     covered_items_parts = []
     if scheme_description:
         covered_items_parts.append(scheme_description)
@@ -76,10 +53,8 @@ def _handle_policy_schedule(
         covered_items_parts.append(f"Insured: {insured_persons}")
     covered_items = "; ".join(covered_items_parts) if covered_items_parts else "Not applicable to policy schedule"
 
-    # Coverage Limit: from sum_insured
     coverage_limit = sum_insured if sum_insured else "Not applicable to policy schedule"
 
-    # Policy Period
     if period_from and period_to:
         policy_period = f"{period_from} to {period_to}"
     elif period_from:
@@ -87,14 +62,13 @@ def _handle_policy_schedule(
     else:
         policy_period = "Not stated in schedule"
 
-    # Restrictions / Exclusions / Deductibles — schedules don't list these; they live in separate policy wording
+    # Restrictions, exclusions, and deductibles live in the policy wording document, not the schedule
     na_msg = "Not applicable to policy schedule"
 
-    # Build match status
     key_fields_ok = bool(sum_insured and scheme_description)
     match_status = "Schedule Verified" if key_fields_ok else "Uncertain — Key Fields Missing"
 
-    # Build structured policy_context string in the exact format parsePolicyContext() expects
+    # Build structured policy_context in the exact format parsePolicyContext() on the frontend expects
     policy_context = (
         f"RELEVANT POLICY FINDINGS\n\n"
         f"Covered Items:\n- {covered_items}\n\n"
@@ -144,11 +118,7 @@ def _handle_policy_schedule(
     }
 
 
-# ─── HANDLER 2: Claim Form ────────────────────────────────────── #
-
 def _build_verification_prompt(extracted_fields: dict, retrieved_clauses: list) -> str:
-    """Build a strict JSON-output prompt for the LLM (claim_form only)."""
-
     def field_val(name: str) -> str:
         f = extracted_fields.get(name, {})
         return (f.get("value", "N/A") if isinstance(f, dict) else str(f))
@@ -197,7 +167,6 @@ Respond with ONLY this JSON object (no markdown, no explanation):
 
 
 def _call_ollama(prompt: str) -> dict:
-    """Call Ollama and parse the JSON response (claim_form only)."""
     resp = requests.post(
         f"{OLLAMA_BASE_URL}/api/generate",
         json={
@@ -215,7 +184,6 @@ def _call_ollama(prompt: str) -> dict:
     raw = re.sub(r"^```(?:json)?\s*", "", raw, flags=re.MULTILINE)
     raw = re.sub(r"```\s*$", "", raw, flags=re.MULTILINE).strip()
 
-    # Extract JSON object
     match = re.search(r"\{.*\}", raw, re.DOTALL)
     if not match:
         raise ValueError(f"No JSON object found in LLM response: {raw[:200]}")
@@ -230,10 +198,6 @@ def _handle_claim_form(
     tracer,
     t0: float,
 ) -> dict:
-    """
-    Claim Form Verification Handler.
-    Original RAG + LLM logic — unchanged from previous implementation.
-    """
     error_msg = ""
     verdict = VerificationVerdict()
     new_flags: list[Flag] = []
@@ -315,13 +279,7 @@ def _handle_claim_form(
     }
 
 
-# ─── Agent node ───────────────────────────────────────────────── #
-
 def node_verification(state: ClaimState) -> dict:
-    """
-    LangGraph node — Verification Agent.
-    Dispatches to isolated per-doc-type handlers.
-    """
     doc_id = state["doc_id"]
     doc_type = state.get("document_type", "unknown")
     extracted_fields = state.get("extracted_fields", {})
@@ -334,7 +292,6 @@ def node_verification(state: ClaimState) -> dict:
     ) as tracer:
         t0 = time.perf_counter()
 
-        # ── Dispatch by document type ──────────────────────────── #
         if doc_type == "policy_schedule":
             return _handle_policy_schedule(doc_id, extracted_fields, tracer, t0)
 
@@ -342,7 +299,6 @@ def node_verification(state: ClaimState) -> dict:
             return _handle_claim_form(doc_id, extracted_fields, retrieved_clauses, state, tracer, t0)
 
         else:
-            # All other non-claim types (medical_bill, kyc_id_proof, etc.): instant bypass
             verdict = VerificationVerdict(
                 coverage_status="not_applicable",
                 amount_within_limit=True,

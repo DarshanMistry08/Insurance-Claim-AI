@@ -1,11 +1,3 @@
-"""
-api/main.py — FastAPI backend for the Claims AI Pipeline.
-
-Endpoints:
-  POST /claims/process  — Upload a claim image, run the LangGraph pipeline, return JSON result.
-  GET  /claims/{doc_id} — Retrieve a previously processed claim from Postgres.
-  GET  /health          — Health check for Ollama + Postgres.
-"""
 
 import os
 import shutil
@@ -79,7 +71,6 @@ async def process_claim(file: UploadFile = File(...)):
     Upload a claim document image (PNG/JPG).
     Runs the full LangGraph pipeline and returns structured results.
     """
-    # Save uploaded image
     ext = Path(file.filename).suffix or ".png"
     doc_id = f"upload_{uuid.uuid4().hex[:8]}"
     image_path = UPLOAD_DIR / f"{doc_id}{ext}"

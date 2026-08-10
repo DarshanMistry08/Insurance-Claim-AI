@@ -1,13 +1,3 @@
-"""
-agents/summary_agent.py — Adjuster Summary Agent (Node 5 of 5).
-
-Generates a structured AdjusterSummary:
-  - recommendation: APPROVE | FLAG_FOR_REVIEW | REJECT
-  - confidence_score: 0.0–1.0
-  - summary_text: Grounded Markdown narrative
-  - citations: [{field_ref, clause_ref, rationale}]
-"""
-
 from __future__ import annotations
 import os
 import re
@@ -38,9 +28,7 @@ DB_CONFIG = {
 
 
 def _derive_recommendation(flags: list[dict], verification_verdict: dict, fraud_result: dict, doc_type: str) -> tuple[str, float]:
-    """Rule-based recommendation derived from document type, flags, and verdicts."""
     if doc_type != "claim_form":
-        # Non-claim documents (e.g. policy_schedule) do not get flagged for claim fraud
         high_flags = [f for f in flags if f.get("severity") == "HIGH"]
         if high_flags:
             return "FLAG_FOR_REVIEW", 0.70
@@ -94,7 +82,6 @@ def _generate_summary_text(
     recommendation: str,
     retrieved_clauses: list[dict],
 ) -> str:
-    """Ask Ollama to write a Grounded, Type-Aware Summary."""
     claim_json = json.dumps(extracted_fields, indent=2)
 
     if doc_type != "claim_form":
@@ -150,7 +137,7 @@ Fraud assessment: {fraud_json}"""
         resp.raise_for_status()
         summary_out = resp.json().get("response", "").strip()
 
-        # STEP 6 Post-generation Check: Rejects summaries that hallucinate claim details for non-claim docs
+        # Reject summaries that hallucinate claim details for non-claim documents
         if doc_type != "claim_form":
             lowered = summary_out.lower()
             if any(term in lowered for term in ["water damage", "fire damage", "incident date", "amount claimed: $"]):

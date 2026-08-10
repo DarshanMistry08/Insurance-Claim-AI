@@ -1,15 +1,5 @@
-"""
-pipeline/graph.py — LangGraph orchestrator for the ClaimSight pipeline.
-
-This module is a thin wiring layer. All logic lives in /agents/*.
-Exposes `app` (compiled graph) at module level for:
-  - LangGraph Studio discovery (langgraph.json)
-  - FastAPI import (api/main.py)
-  - CLI / eval usage
-
-Pipeline topology (sequential):
-    START → extract → policy_retrieval → verification → fraud_scoring → summary → END
-"""
+# Thin wiring layer — all logic lives in /agents/*.
+# Pipeline: START → extract → policy_retrieval → verification → fraud_scoring → summary → END
 
 import os
 import logging
@@ -20,7 +10,6 @@ try:
 except ImportError:
     pass  # In Docker, env vars are injected via docker-compose
 
-# Configure structured logging
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s %(levelname)s %(name)s — %(message)s",
@@ -58,22 +47,11 @@ def build_graph() -> object:
     return workflow.compile()
 
 
-# Module-level compiled graph (required by LangGraph Studio)
+# Module-level compiled graph (required for LangGraph Studio discovery)
 app = build_graph()
 
 
-# ─── Convenience run function ─────────────────────────────────── #
-
 def run_pipeline(doc_id: str, image_path: str) -> dict:
-    """
-    Run the full pipeline for a single document.
-
-    Args:
-        doc_id:     Unique identifier for the document.
-        image_path: Absolute or relative path to the claim image.
-
-    Returns:
-        Final ClaimState dict after all 5 nodes execute.
-    """
+    """Run the full 5-node pipeline for a single document."""
     initial = empty_state(doc_id=doc_id, image_path=image_path)
     return app.invoke(initial)

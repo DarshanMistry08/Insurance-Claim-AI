@@ -1,10 +1,3 @@
-"""
-agents/policy_retrieval_agent.py — Policy RAG Agent (Node 2 of 5).
-
-Retrieves top-k relevant policy clauses from pgvector using cosine similarity.
-Returns a structured list of PolicyClause objects with clause IDs for citations.
-"""
-
 from __future__ import annotations
 import os
 import re
@@ -41,7 +34,6 @@ COVERAGE_LIMITS: dict[str, float] = {
     "auto":   100_000,
 }
 
-# Singleton embedding model (loaded once per process)
 _emb_model: SentenceTransformer | None = None
 
 def _get_model() -> SentenceTransformer:
@@ -52,7 +44,6 @@ def _get_model() -> SentenceTransformer:
 
 
 def _build_query(extracted_fields: dict) -> str:
-    """Construct a natural language query from extracted claim fields."""
     def val(field: str) -> str:
         f = extracted_fields.get(field, {})
         if isinstance(f, dict):
@@ -65,7 +56,6 @@ def _build_query(extracted_fields: dict) -> str:
 
 
 def _retrieve_clauses(query: str) -> list[PolicyClause]:
-    """Run vector similarity search against policy chunks + join policy_clauses metadata."""
     model = _get_model()
     query_emb = model.encode(query).tolist()
 
@@ -110,7 +100,6 @@ def _retrieve_clauses(query: str) -> list[PolicyClause]:
 
 
 def _check_coverage_limit(extracted_fields: dict, clauses: list[PolicyClause]) -> list[Flag]:
-    """Compare claimed amount against known coverage limits."""
     flags: list[Flag] = []
 
     def val(field: str) -> str:
@@ -120,7 +109,6 @@ def _check_coverage_limit(extracted_fields: dict, clauses: list[PolicyClause]) -
     incident_type = val("incident_type").lower()
     amount_str = val("amount_claimed")
 
-    # Normalise amount
     try:
         amount = float(re.sub(r"[^0-9.]", "", amount_str))
     except (ValueError, TypeError):
@@ -128,7 +116,6 @@ def _check_coverage_limit(extracted_fields: dict, clauses: list[PolicyClause]) -
 
     limit = COVERAGE_LIMITS.get(incident_type)
     if limit and amount > limit:
-        # Find the most relevant clause for citation
         clause_ref = ""
         for c in clauses:
             if incident_type in c.chunk_text.lower() or incident_type in c.clause_id.lower():
@@ -158,13 +145,10 @@ def _check_coverage_limit(extracted_fields: dict, clauses: list[PolicyClause]) -
     return flags
 
 
-# ─── Agent node ───────────────────────────────────────────────── #
-
 def node_policy_retrieval(state: ClaimState) -> dict:
     """
-    LangGraph node — Policy Retrieval Agent.
-    Retrieves top-k policy clauses and raises coverage-limit flags.
-    Bypasses retrieval for non-claim document types (policy_schedule, kyc_id_proof, etc.).
+    Retrieves top-k policy clauses via pgvector and raises coverage-limit flags.
+    Skips retrieval for non-claim document types.
     """
     doc_id = state["doc_id"]
     doc_type = state.get("document_type", "claim_form")

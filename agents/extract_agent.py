@@ -1,14 +1,6 @@
-"""
-agents/extract_agent.py — Schema-Aware Field Extraction Agent (Node 1 of 5).
-
-Steps Implemented:
-  STEP 1: Document Classification (policy_schedule | claim_form | medical_bill_invoice | discharge_summary | kyc_id_proof | claims_history_record | unknown)
-  STEP 2: Schema Registry Filtering (loads target schema per doc type)
-  STEP 3: Label-Anchored Spatial Extraction & Disambiguation (regex anchors + LLM vision)
-  STEP 4: Strict No-Cross-Field Backfill Rules
-"""
-
 from __future__ import annotations
+
+
 import os
 import re
 import json
@@ -159,7 +151,7 @@ def _get_ocr_raw_text(image_path: str) -> str:
         return ""
 
 
-# ─── STEP 3: Label-Anchored Spatial Regex Extraction ───────────── #
+
 
 def _extract_via_regex_anchors(ocr_text: str, doc_type: str) -> Dict[str, Tuple[str, float]]:
     """Extract fields using exact label-anchored spatial regex patterns."""
@@ -337,7 +329,7 @@ def _extract_via_regex_anchors(ocr_text: str, doc_type: str) -> Dict[str, Tuple[
     return extracted
 
 
-# ─── STEP 3 & 4: Schema-Aware Hybrid Extraction Engine ────────── #
+
 
 def _extract_schema_fields(
     image_path: str,
@@ -347,22 +339,10 @@ def _extract_schema_fields(
     ocr_text: str,
     quality_meta: dict
 ) -> Dict[str, ExtractedField]:
-    """
-    Hybrid Schema Extraction Engine:
-    1. Label-Anchored Regex & Spatial Key-Value Extraction on OCR text.
-    2. Ollama Vision / Text Model JSON Prompt Extraction.
-    3. Merges high-confidence label-anchored matches.
-    """
-    # 1. Primary Spatial & Regex Anchors
+
     regex_extracted = _extract_via_regex_anchors(ocr_text, doc_type)
 
-    # 2. Ollama Vision / Text Model Invocation
-    print(f"\n================================================================================")
-    print(f"[EXTRACTION_MODEL_CALL_START] Invoking Ollama VQA model for document_type: '{doc_type}'")
-    print(f"Target Image: {image_path}")
-    print(f"Target Schema Fields ({len(schema)} fields): {list(schema.keys())}")
-    print(f"================================================================================")
-    logger.info("[EXTRACTION_MODEL_CALL_START] Invoking Ollama for %s on %s", doc_type, image_path)
+    logger.info("extract: invoking Ollama for %s on %s (%d fields)", doc_type, image_path, len(schema))
 
     with open(image_path, "rb") as fh:
         image_b64 = base64.b64encode(fh.read()).decode("utf-8")
@@ -410,24 +390,19 @@ Output ONLY the JSON."""
         resp = requests.post(f"{OLLAMA_BASE_URL}/api/generate", json=req_body, timeout=120)
         resp.raise_for_status()
         raw = resp.json().get("response", "").strip()
-        t_model_elapsed = time.perf_counter() - t_model_start
-        print(f"[EXTRACTION_MODEL_CALL_END] Model invocation completed in {t_model_elapsed:.2f} seconds.")
+        logger.debug("extract: model call completed in %.2fs", time.perf_counter() - t_model_start)
     except Exception as vision_err:
-        print(f"[EXTRACTION_MODEL_CALL] Vision payload error ({vision_err}). Falling back to text prompt with OCR context...")
+        logger.debug("extract: vision payload failed (%s), retrying as text prompt", vision_err)
         try:
             req_body = {"model": OLLAMA_MODEL, "prompt": prompt, "stream": False, "options": {"temperature": 0}}
             resp = requests.post(f"{OLLAMA_BASE_URL}/api/generate", json=req_body, timeout=120)
             resp.raise_for_status()
             raw = resp.json().get("response", "").strip()
-            t_model_elapsed = time.perf_counter() - t_model_start
-            print(f"[EXTRACTION_MODEL_CALL_END] Fallback text model invocation completed in {t_model_elapsed:.2f} seconds.")
         except Exception as text_err:
-            t_model_elapsed = time.perf_counter() - t_model_start
-            print(f"[EXTRACTION_MODEL_CALL_FAILED] Both vision and text model calls failed after {t_model_elapsed:.2f}s: {text_err}")
+            logger.error("extract: both vision and text model calls failed: %s", text_err)
             raw = ""
 
     if raw:
-        print(f"[MODEL_RESPONSE_RAW_SNIPPET]: {raw[:400]}")
         raw_clean = re.sub(r"^```(?:json)?\s*", "", raw, flags=re.MULTILINE)
         raw_clean = re.sub(r"```\s*$", "", raw_clean, flags=re.MULTILINE).strip()
         match = re.search(r"\{.*\}", raw_clean, re.DOTALL)
@@ -437,7 +412,6 @@ Output ONLY the JSON."""
 
     results: Dict[str, ExtractedField] = {}
     for field_name in schema.keys():
-        # Check primary spatial regex anchor first (only if value is non-empty)
         if field_name in regex_extracted and regex_extracted[field_name][0]:
             reg_val, reg_conf = regex_extracted[field_name]
             field_obj = ExtractedField(
@@ -460,7 +434,6 @@ Output ONLY the JSON."""
             results[field_name] = field_obj
             continue
 
-        # Ollama extraction fallback
         field_data = parsed.get(field_name, {})
         if isinstance(field_data, dict):
             val = str(field_data.get("value", "")).strip()
@@ -513,7 +486,7 @@ Output ONLY the JSON."""
     return results
 
 
-# ─── Agent Node ───────────────────────────────────────────────── #
+
 
 def node_extract(state: ClaimState) -> dict:
     doc_id = state["doc_id"]
@@ -534,7 +507,6 @@ def node_extract(state: ClaimState) -> dict:
 
         preprocessed_path, prep_meta = _preprocess_claim_image(image_path, doc_id)
 
-        # STEP 1: Document Classification (run OCR on original image first for crisp text)
         ocr_text = _get_ocr_raw_text(image_path)
         if not ocr_text or len(ocr_text) < 50:
             ocr_text = _get_ocr_raw_text(preprocessed_path)
@@ -551,7 +523,6 @@ def node_extract(state: ClaimState) -> dict:
                 field_ref="document_type",
             ).model_dump())
 
-        # STEP 2, 3, & 4: Schema Registry & Hybrid Label-Anchored Extraction
         target_schema = get_schema_for_doc_type(doc_type)
         extracted_fields = _extract_schema_fields(
             image_path, doc_id, doc_type, target_schema, ocr_text, quality_meta
